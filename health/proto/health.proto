@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package health;
+
+option go_package="/";
+
+import "google/protobuf/empty.proto";
+
+service HealthService {
+    rpc Health(google.protobuf.Empty) returns (HealthResponse) {}
+}
+
+message HealthResponse {
+    string message = 1;
+}

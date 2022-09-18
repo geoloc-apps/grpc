@@ -1,0 +1,150 @@
+syntax="proto3";
+
+package province;
+
+option go_package="/";
+
+import "google/protobuf/empty.proto";
+
+service ProvinceService {
+    rpc GetAllProvinces(google.protobuf.Empty) returns (GetAllProvincesResponse) {}
+    rpc GetProvinceByID(GetProvinceByIDRequest) returns (GetProvinceByIDResponse) {}
+    rpc GetProvincesByIDs(GetProvincesByIDsRequest) returns (GetProvincesByIDsResponse) {}
+    rpc InsertProvince(InsertProvinceRequest) returns (InsertProvinceResponse) {}
+    rpc InsertProvinces(InsertProvincesRequest) returns (InsertProvincesResponse) {}
+    rpc UpdateProvince(UpdateProvinceRequest) returns (UpdateProvinceResponse) {}
+    rpc UpdateProvinces(UpdateProvincesRequest) returns (UpdateProvincesResponse) {}
+    rpc DeleteProvince(DeleteProvinceRequest) returns (DeleteProvinceResponse) {}
+    rpc DeleteProvinces(DeleteProvincesRequest) returns (DeleteProvincesResponse) {}
+}
+
+// GetAllProvinces
+message GetAllProvincesResponse {
+    Header header = 1;
+    repeated ProvinceData data = 2;
+}
+
+// GetProvinceByID
+message GetProvinceByIDRequest {
+    GetProvinceByIDInput request = 1;
+}
+
+message GetProvinceByIDInput {
+    string id = 1;
+}
+
+message GetProvinceByIDResponse {
+    Header header = 1;
+    ProvinceData data = 2;
+}
+
+// GetProvincesByIDs
+message GetProvincesByIDsRequest {
+    GetProvincesByIDsInput request = 1;
+}
+
+message GetProvincesByIDsInput {
+    repeated string id = 1;
+}
+
+message GetProvincesByIDsResponse {
+    Header header = 1;
+    repeated ProvinceData data = 2;
+}
+
+// InsertProvince
+message InsertProvinceRequest {
+    InsertProvinceInput request = 1;
+}
+
+message InsertProvinceInput {
+    string provinceID = 1;
+    string provinceName = 2;
+    string islandID = 3;
+}
+
+message InsertProvinceResponse {
+    Header header = 1;
+    ProvinceData data = 2;
+}
+
+// InsertProvinces
+message InsertProvincesRequest {
+    repeated InsertProvinceInput request = 1;
+}
+
+message InsertProvincesResponse {
+    Header header = 1;
+    repeated ProvinceData data = 2;
+}
+
+// UpdateProvince
+message UpdateProvinceRequest {
+    UpdateProvinceInput request = 1;
+}
+
+message UpdateProvinceInput {
+    string provinceID = 1;
+    OptionalString provinceName = 2;
+    OptionalString islandID = 3;
+}
+
+message UpdateProvinceResponse {
+    Header header = 1;
+    ProvinceData data = 2;
+}
+
+// UpdateProvinces
+message UpdateProvincesRequest {
+    repeated UpdateProvinceInput request = 1;
+}
+
+message UpdateProvincesResponse {
+    Header header = 1;
+    repeated ProvinceData data = 2;
+}
+
+// DeleteProvince
+message DeleteProvinceRequest {
+    DeleteProvinceInput request = 1;
+}
+
+message DeleteProvinceInput {
+    string id = 1;
+}
+
+message DeleteProvinceResponse {
+    Header header = 1;
+    ProvinceData data = 2;
+}
+
+// DeleteProvinces
+message DeleteProvincesRequest {
+    DeleteProvincesInput request = 1;
+}
+
+message DeleteProvincesInput {
+    repeated string id = 1;
+}
+
+message DeleteProvincesResponse {
+    Header header = 1;
+    repeated ProvinceData data = 2;
+}
+
+// Base Data
+message ProvinceData {
+    string provinceID = 1;
+    string provinceName = 2;
+    string islandID = 3;
+}
+
+message Header {
+    int32 status = 1;
+    repeated string message = 2;
+}
+
+message OptionalString {
+    string value = 1;
+    bool hasSet = 2;
+}
