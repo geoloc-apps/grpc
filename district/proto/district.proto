@@ -1,0 +1,150 @@
+syntax="proto3";
+
+package district;
+
+option go_package="/";
+
+import "google/protobuf/empty.proto";
+
+service DistrictService {
+    rpc GetAllDistricts(google.protobuf.Empty) returns (GetAllDistrictsResponse) {}
+    rpc GetDistrictByID(GetDistrictByIDRequest) returns (GetDistrictByIDResponse) {}
+    rpc GetDistrictsByIDs(GetDistrictsByIDsRequest) returns (GetDistrictsByIDsResponse) {}
+    rpc InsertDistrict(InsertDistrictRequest) returns (InsertDistrictResponse) {}
+    rpc InsertDistricts(InsertDistrictsRequest) returns (InsertDistrictsResponse) {}
+    rpc UpdateDistrict(UpdateDistrictRequest) returns (UpdateDistrictResponse) {}
+    rpc UpdateDistricts(UpdateDistrictsRequest) returns (UpdateDistrictsResponse) {}
+    rpc DeleteDistrict(DeleteDistrictRequest) returns (DeleteDistrictResponse) {}
+    rpc DeleteDistricts(DeleteDistrictsRequest) returns (DeleteDistrictsResponse) {}
+}
+
+// GetAllDistricts
+message GetAllDistrictsResponse {
+    Header header = 1;
+    repeated DistrictData data = 2;
+}
+
+// GetDistrictByID
+message GetDistrictByIDRequest {
+    GetDistrictByIDInput request = 1;
+}
+
+message GetDistrictByIDInput {
+    string id = 1;
+}
+
+message GetDistrictByIDResponse {
+    Header header = 1;
+    DistrictData data = 2;
+}
+
+// GetDistrictsByIDs
+message GetDistrictsByIDsRequest {
+    GetDistrictsByIDsInput request = 1;
+}
+
+message GetDistrictsByIDsInput {
+    repeated string id = 1;
+}
+
+message GetDistrictsByIDsResponse {
+    Header header = 1;
+    repeated DistrictData data = 2;
+}
+
+// InsertDistrict
+message InsertDistrictRequest {
+    InsertDistrictInput request = 1;
+}
+
+message InsertDistrictInput {
+    string districtID = 1;
+    string districtName = 2;
+    string cityID = 3;
+}
+
+message InsertDistrictResponse {
+    Header header = 1;
+    DistrictData data = 2;
+}
+
+// InsertDistricts
+message InsertDistrictsRequest {
+    repeated InsertDistrictInput request = 1;
+}
+
+message InsertDistrictsResponse {
+    Header header = 1;
+    repeated DistrictData data = 2;
+}
+
+// UpdateDistrict
+message UpdateDistrictRequest {
+    UpdateDistrictInput request = 1;
+}
+
+message UpdateDistrictInput {
+    string districtID = 1;
+    OptionalString districtName = 2;
+    OptionalString cityID = 3;
+}
+
+message UpdateDistrictResponse {
+    Header header = 1;
+    DistrictData data = 2;
+}
+
+// UpdateDistricts
+message UpdateDistrictsRequest {
+    repeated UpdateDistrictInput request = 1;
+}
+
+message UpdateDistrictsResponse {
+    Header header = 1;
+    repeated DistrictData data = 2;
+}
+
+// DeleteDistrict
+message DeleteDistrictRequest {
+    DeleteDistrictInput request = 1;
+}
+
+message DeleteDistrictInput {
+    string id = 1;
+}
+
+message DeleteDistrictResponse {
+    Header header = 1;
+    DistrictData data = 2;
+}
+
+// DeleteDistricts
+message DeleteDistrictsRequest {
+    DeleteDistrictsInput request = 1;
+}
+
+message DeleteDistrictsInput {
+    repeated string id = 1;
+}
+
+message DeleteDistrictsResponse {
+    Header header = 1;
+    repeated DistrictData data = 2;
+}
+
+// Base Data
+message DistrictData {
+    string districtID = 1;
+    string districtName = 2;
+    string cityID = 3;
+}
+
+message Header {
+    int32 status = 1;
+    repeated string message = 2;
+}
+
+message OptionalString {
+    string value = 1;
+    bool hasSet = 2;
+}

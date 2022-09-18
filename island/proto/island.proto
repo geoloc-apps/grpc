@@ -1,0 +1,147 @@
+syntax="proto3";
+
+package island;
+
+option go_package="/";
+
+import "google/protobuf/empty.proto";
+
+service IslandService {
+    rpc GetAllIslands(google.protobuf.Empty) returns (GetAllIslandsResponse) {}
+    rpc GetIslandByID(GetIslandByIDRequest) returns (GetIslandByIDResponse) {}
+    rpc GetIslandsByIDs(GetIslandsByIDsRequest) returns (GetIslandsByIDsResponse) {}
+    rpc InsertIsland(InsertIslandRequest) returns (InsertIslandResponse) {}
+    rpc InsertIslands(InsertIslandsRequest) returns (InsertIslandsResponse) {}
+    rpc UpdateIsland(UpdateIslandRequest) returns (UpdateIslandResponse) {}
+    rpc UpdateIslands(UpdateIslandsRequest) returns (UpdateIslandsResponse) {}
+    rpc DeleteIsland(DeleteIslandRequest) returns (DeleteIslandResponse) {}
+    rpc DeleteIslands(DeleteIslandsRequest) returns (DeleteIslandsResponse) {}
+}
+
+// GetAllIslands
+message GetAllIslandsResponse {
+    Header header = 1;
+    repeated IslandData data = 2;
+}
+
+// GetIslandByID
+message GetIslandByIDRequest {
+    GetIslandByIDInput request = 1;
+}
+
+message GetIslandByIDInput {
+    string id = 1;
+}
+
+message GetIslandByIDResponse {
+    Header header = 1;
+    IslandData data = 2;
+}
+
+// GetIslandsByIDs
+message GetIslandsByIDsRequest {
+    GetIslandsByIDsInput request = 1;
+}
+
+message GetIslandsByIDsInput {
+    repeated string id = 1;
+}
+
+message GetIslandsByIDsResponse {
+    Header header = 1;
+    repeated IslandData data = 2;
+}
+
+// InsertIsland
+message InsertIslandRequest {
+    InsertIslandInput request = 1;
+}
+
+message InsertIslandInput {
+    string islandID = 1;
+    string islandName = 2;
+}
+
+message InsertIslandResponse {
+    Header header = 1;
+    IslandData data = 2;
+}
+
+// InsertIslands
+message InsertIslandsRequest {
+    repeated InsertIslandInput request = 1;
+}
+
+message InsertIslandsResponse {
+    Header header = 1;
+    repeated IslandData data = 2;
+}
+
+// UpdateIsland
+message UpdateIslandRequest {
+    UpdateIslandInput request = 1;
+}
+
+message UpdateIslandInput {
+    string islandID = 1;
+    OptionalString islandName = 2;
+}
+
+message UpdateIslandResponse {
+    Header header = 1;
+    IslandData data = 2;
+}
+
+// UpdateIslands
+message UpdateIslandsRequest {
+    repeated UpdateIslandInput request = 1;
+}
+
+message UpdateIslandsResponse {
+    Header header = 1;
+    repeated IslandData data = 2;
+}
+
+// DeleteIsland
+message DeleteIslandRequest {
+    DeleteIslandInput request = 1;
+}
+
+message DeleteIslandInput {
+    string id = 1;
+}
+
+message DeleteIslandResponse {
+    Header header = 1;
+    IslandData data = 2;
+}
+
+// DeleteIslands
+message DeleteIslandsRequest {
+    DeleteIslandsInput request = 1;
+}
+
+message DeleteIslandsInput {
+    repeated string id = 1;
+}
+
+message DeleteIslandsResponse {
+    Header header = 1;
+    repeated IslandData data = 2;
+}
+
+// Base Data
+message IslandData {
+    string islandID = 1;
+    string islandName = 2;
+}
+
+message Header {
+    int32 status = 1;
+    repeated string message = 2;
+}
+
+message OptionalString {
+    string value = 1;
+    bool hasSet = 2;
+}

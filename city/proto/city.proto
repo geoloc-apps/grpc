@@ -1,0 +1,153 @@
+syntax="proto3";
+
+package city;
+
+option go_package="/";
+
+import "google/protobuf/empty.proto";
+
+service CityService {
+    rpc GetAllCities(google.protobuf.Empty) returns (GetAllCitiesResponse) {}
+    rpc GetCityByID(GetCityByIDRequest) returns (GetCityByIDResponse) {}
+    rpc GetCitiesByIDs(GetCitiesByIDsRequest) returns (GetCitiesByIDsResponse) {}
+    rpc InsertCity(InsertCityRequest) returns (InsertCityResponse) {}
+    rpc InsertCities(InsertCitiesRequest) returns (InsertCitiesResponse) {}
+    rpc UpdateCity(UpdateCityRequest) returns (UpdateCityResponse) {}
+    rpc UpdateCities(UpdateCitiesRequest) returns (UpdateCitiesResponse) {}
+    rpc DeleteCity(DeleteCityRequest) returns (DeleteCityResponse) {}
+    rpc DeleteCities(DeleteCitiesRequest) returns (DeleteCitiesResponse) {}
+}
+
+// GetAllCities
+message GetAllCitiesResponse {
+    Header header = 1;
+    repeated CityData data = 2;
+}
+
+// GetCityByID
+message GetCityByIDRequest {
+    GetCityByIDInput request = 1;
+}
+
+message GetCityByIDInput {
+    string id = 1;
+}
+
+message GetCityByIDResponse {
+    Header header = 1;
+    CityData data = 2;
+}
+
+// GetCitiesByIDs
+message GetCitiesByIDsRequest {
+    GetCitiesByIDsInput request = 1;
+}
+
+message GetCitiesByIDsInput {
+    repeated string id = 1;
+}
+
+message GetCitiesByIDsResponse {
+    Header header = 1;
+    repeated CityData data = 2;
+}
+
+// InsertCity
+message InsertCityRequest {
+    InsertCityInput request = 1;
+}
+
+message InsertCityInput {
+    string cityID = 1;
+    string cityName = 2;
+    string cityType = 3;
+    string provinceID = 4;
+}
+
+message InsertCityResponse {
+    Header header = 1;
+    CityData data = 2;
+}
+
+// InsertCities
+message InsertCitiesRequest {
+    repeated InsertCityInput request = 1;
+}
+
+message InsertCitiesResponse {
+    Header header = 1;
+    repeated CityData data = 2;
+}
+
+// UpdateCity
+message UpdateCityRequest {
+    UpdateCityInput request = 1;
+}
+
+message UpdateCityInput {
+    string cityID = 1;
+    OptionalString cityName = 2;
+    OptionalString cityType = 3;
+    OptionalString provinceID = 4;
+}
+
+message UpdateCityResponse {
+    Header header = 1;
+    CityData data = 2;
+}
+
+// UpdateCities
+message UpdateCitiesRequest {
+    repeated UpdateCityInput request = 1;
+}
+
+message UpdateCitiesResponse {
+    Header header = 1;
+    repeated CityData data = 2;
+}
+
+// DeleteCity
+message DeleteCityRequest {
+    DeleteCityInput request = 1;
+}
+
+message DeleteCityInput {
+    string id = 1;
+}
+
+message DeleteCityResponse {
+    Header header = 1;
+    CityData data = 2;
+}
+
+// DeleteCities
+message DeleteCitiesRequest {
+    DeleteCitiesInput request = 1;
+}
+
+message DeleteCitiesInput {
+    repeated string id = 1;
+}
+
+message DeleteCitiesResponse {
+    Header header = 1;
+    repeated CityData data = 2;
+}
+
+// Base Data
+message CityData {
+    string cityID = 1;
+    string cityName = 2;
+    string cityType = 3;
+    string provinceID = 4;
+}
+
+message Header {
+    int32 status = 1;
+    repeated string message = 2;
+}
+
+message OptionalString {
+    string value = 1;
+    bool hasSet = 2;
+}

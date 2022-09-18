@@ -1,0 +1,153 @@
+syntax="proto3";
+
+package geoloc;
+
+option go_package="/";
+
+import "google/protobuf/empty.proto";
+
+service GeolocService {
+    rpc GetAllGeolocs(google.protobuf.Empty) returns (GetAllGeolocsResponse) {}
+    rpc GetGeolocByID(GetGeolocByIDRequest) returns (GetGeolocByIDResponse) {}
+    rpc GetGeolocsByIDs(GetGeolocsByIDsRequest) returns (GetGeolocsByIDsResponse) {}
+    rpc InsertGeoloc(InsertGeolocRequest) returns (InsertGeolocResponse) {}
+    rpc InsertGeolocs(InsertGeolocsRequest) returns (InsertGeolocsResponse) {}
+    rpc UpdateGeoloc(UpdateGeolocRequest) returns (UpdateGeolocResponse) {}
+    rpc UpdateGeolocs(UpdateGeolocsRequest) returns (UpdateGeolocsResponse) {}
+    rpc DeleteGeoloc(DeleteGeolocRequest) returns (DeleteGeolocResponse) {}
+    rpc DeleteGeolocs(DeleteGeolocsRequest) returns (DeleteGeolocsResponse) {}
+}
+
+// GetAllGeolocs
+message GetAllGeolocsResponse {
+    Header header = 1;
+    repeated GeolocData data = 2;
+}
+
+// GetGeolocByID
+message GetGeolocByIDRequest {
+    GetGeolocByIDInput request = 1;
+}
+
+message GetGeolocByIDInput {
+    string id = 1;
+}
+
+message GetGeolocByIDResponse {
+    Header header = 1;
+    GeolocData data = 2;
+}
+
+// GetGeolocsByIDs
+message GetGeolocsByIDsRequest {
+    GetGeolocsByIDsInput request = 1;
+}
+
+message GetGeolocsByIDsInput {
+    repeated string id = 1;
+}
+
+message GetGeolocsByIDsResponse {
+    Header header = 1;
+    repeated GeolocData data = 2;
+}
+
+// InsertGeoloc
+message InsertGeolocRequest {
+    InsertGeolocInput request = 1;
+}
+
+message InsertGeolocInput {
+    string geolocID = 1;
+    string latitude = 2;
+    string longitude = 3;
+    string coordinates = 4;
+}
+
+message InsertGeolocResponse {
+    Header header = 1;
+    GeolocData data = 2;
+}
+
+// InsertGeolocs
+message InsertGeolocsRequest {
+    repeated InsertGeolocInput request = 1;
+}
+
+message InsertGeolocsResponse {
+    Header header = 1;
+    repeated GeolocData data = 2;
+}
+
+// UpdateGeoloc
+message UpdateGeolocRequest {
+    UpdateGeolocInput request = 1;
+}
+
+message UpdateGeolocInput {
+    string geolocID = 1;
+    OptionalString latitude = 2;
+    OptionalString longitude = 3;
+    OptionalString coordinates = 4;
+}
+
+message UpdateGeolocResponse {
+    Header header = 1;
+    GeolocData data = 2;
+}
+
+// UpdateGeolocs
+message UpdateGeolocsRequest {
+    repeated UpdateGeolocInput request = 1;
+}
+
+message UpdateGeolocsResponse {
+    Header header = 1;
+    repeated GeolocData data = 2;
+}
+
+// DeleteGeoloc
+message DeleteGeolocRequest {
+    DeleteGeolocInput request = 1;
+}
+
+message DeleteGeolocInput {
+    string id = 1;
+}
+
+message DeleteGeolocResponse {
+    Header header = 1;
+    GeolocData data = 2;
+}
+
+// DeleteGeolocs
+message DeleteGeolocsRequest {
+    DeleteGeolocsInput request = 1;
+}
+
+message DeleteGeolocsInput {
+    repeated string id = 1;
+}
+
+message DeleteGeolocsResponse {
+    Header header = 1;
+    repeated GeolocData data = 2;
+}
+
+// Base Data
+message GeolocData {
+    string geolocID = 1;
+    string latitude = 2;
+    string longitude = 3;
+    string coordinates = 4;
+}
+
+message Header {
+    int32 status = 1;
+    repeated string message = 2;
+}
+
+message OptionalString {
+    string value = 1;
+    bool hasSet = 2;
+}
